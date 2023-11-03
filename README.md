@@ -1,7 +1,6 @@
 # MemoryLeakDemo
 
 ## Overview
-
 This is a sample Perl code repository demonstrating a race condition scenario in Perl program that uses `fmap_concat` and `Net::Async::Redis::Multi`.
 
 ## Setup
@@ -10,7 +9,7 @@ To reproduce the scenarios, follow these steps:
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/your-username/MemoryLeakDemo.git
+   git clone git@github.com:afshin-deriv/MemoryLeakDemo.git
    ```
 2. Navigate to the project directory:
    ```bash
@@ -22,8 +21,8 @@ To reproduce the scenarios, follow these steps:
    ```
 
 ## Memory Leak Demonstration
-
 After running the Docker Compose setup, observe the memory usage of the Docker container by executing:
+
    ```bash
    docker stats --format "table {{.Container}}\t{{.MemUsage}}"
    ```
