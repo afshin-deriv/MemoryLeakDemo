@@ -5,6 +5,6 @@ COPY cpanfile .
 
 RUN cpanm -n --installdeps .
 
-COPY test.pl .
+COPY test2.pl .
 
-ENTRYPOINT [ "perl", "/app/test.pl"]
+ENTRYPOINT [ "perl", "/app/test2.pl"]
