@@ -27,15 +27,16 @@ To reproduce the scenarios, follow these steps:
    ```
 You should notice a continuous increase in memory usage, indicating the presence of a memory leak in the Perl code.
 
-###  DEADLock Demonstration
+###  Timeout Demonstration
 3. Run the Docker Compose setup:
    ```bash
-   docker-compose -f docker-compose-deadlock.yml up -d
+   docker-compose -f docker-compose-timeout.yml up -d
    ```
 
-4. After running the Docker Compose setup, observe the output of the `perl-script` service. The `fmap_concat` command never finishes.
+4. After running the Docker Compose setup, observe the output of the `perl-script` service. You will notice that the computation time of `fmap_concat` is significantly longer than when the script runs outside the Docker container.
+
    ```bash
-   docker-compose -f docker-compose-deadlock.yml logs perl-script
+   docker-compose -f docker-compose-timeout.yml logs perl-script
    ```
 
 
@@ -44,6 +45,6 @@ Additionally, this repository includes a simple Perl script that, due to a race 
 
 ## Tear down
 ```
-docker-compose -f docker-compose-deadlock.yml down --rmi all
+docker-compose -f docker-compose-timeout.yml down --rmi all
 docker-compose -f docker-compose-memory.yml down --rmi all
 ```

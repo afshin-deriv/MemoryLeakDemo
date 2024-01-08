@@ -51,8 +51,6 @@ my $end_time = [gettimeofday];
 my $elapsed = tv_interval($start_time, $end_time);
 print "Time taken for computation: $elapsed seconds\n";
 
-print "After calling 'fmap_concat'\n"; ## It never happens inside Docker container!!!
-
-
+print "After calling 'fmap_concat'\n";
 
 $loop->run;
