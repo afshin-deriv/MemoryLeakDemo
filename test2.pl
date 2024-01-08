@@ -6,6 +6,7 @@ use Net::Async::Redis;
 use IO::Async::Loop;
 use Future::AsyncAwait;
 use Future::Utils qw(fmap_concat);
+use Time::HiRes qw(gettimeofday tv_interval);
 
 my $loop = IO::Async::Loop->new;
 
@@ -20,29 +21,38 @@ async sub test_multi {
 
     return await $redis->multi(sub {
         my $tx = shift;
-        $tx->incr("test::$key")->on_done(sub {
-            print "Incr - @_\n";
-        });
         $tx->set("test::$key" => "key value")->on_done(sub {
-            print "Set - @_\n";
+            print "Set $key - @_\n";
         });
-        $tx->del("test::$key")->on_done(sub {
-            print "Del - @_\n";
+        $tx->publish("test::$key", $key)->on_done(sub {
+            print "Pub $key - @_\n";
         });
     });
 }
 
-
-my @keys = ("key1", "key2", "key3", "key4");
 STDOUT->autoflush(1);
+my $simple_hash = {};
+for my $i (1..500) {
+    my $key = "key$i";
+    $simple_hash->{$key} = $i;
+}
+
+my @keys = keys %$simple_hash;
+
 print "Before calling 'fmap_concat'\n";
+my $start_time = [gettimeofday];
 my @results = await fmap_concat {
         test_multi($_);
     }
-    concurrent => 4,
+    concurrent => 10,
     foreach => \@keys;
+my $end_time = [gettimeofday];
+
+my $elapsed = tv_interval($start_time, $end_time);
+print "Time taken for computation: $elapsed seconds\n";
 
 print "After calling 'fmap_concat'\n"; ## It never happens inside Docker container!!!
+
 
 
 $loop->run;
