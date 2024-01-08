@@ -14,25 +14,33 @@ To reproduce the scenarios, follow these steps:
    ```bash
    cd MemoryLeakDemo
    ```
-###  MemoryLeakDemo
-3. Run the Docker Compose setup:
-   ```bash
-   docker-compose up -d
-   ```
-
-###  DEADLock
-3. Run the Docker Compose setup:
-   ```bash
-   docker-compose up -d -f Dockerfile-memory 
-   ```
-
 ## Memory Leak Demonstration
-After running the Docker Compose setup, observe the memory usage of the Docker container by executing:
+3. Run the Docker Compose setup:
+   ```bash
+   docker-compose up -d -f docker-compose-memory.yml
+   ```
+
+4. After running the Docker Compose setup, observe the memory usage of the Docker container by executing:
 
    ```bash
    docker stats --format "table {{.Container}}\t{{.MemUsage}}"
    ```
 You should notice a continuous increase in memory usage, indicating the presence of a memory leak in the Perl code.
 
+###  DEADLock Demonstration
+3. Run the Docker Compose setup:
+   ```bash
+   docker-compose -f docker-compose-deadlock.yml up -d
+   ```
+4. After running the Docker Compose setup, observe the output of `perl-script` service.
+   ```bash
+   docker-compose -f docker-compose-deadlock.yml logs perl-script
+   ```
+
+
 ## Race Condition Demonstration
 Additionally, this repository includes a simple Perl script that, due to a race condition, may never end as expected. Explore the code and run it to observe the unexpected behavior.
+
+## Tear down
+docker-compose -f docker-compose-deadlock.yml down --rmi all
+docker-compose -f docker-compose-memory.yml down --rmi all
