@@ -39,13 +39,10 @@ print "Before calling 'fmap_concat'\n";
 my @results = await fmap_concat {
         test_multi($_);
     }
-    concurrent => 4,   # Up to 4 concurrent operations
+    concurrent => 4,
     foreach => \@keys;
 
-print "After calling 'fmap_concat'\n"; ## It never happens!!!
+print "After calling 'fmap_concat'\n"; ## It never happens inside Docker container!!!
 
-foreach my $res (@results) {
-    say $res;
-}
 
 $loop->run;
