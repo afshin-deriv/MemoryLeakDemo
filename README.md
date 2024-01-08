@@ -32,7 +32,8 @@ You should notice a continuous increase in memory usage, indicating the presence
    ```bash
    docker-compose -f docker-compose-deadlock.yml up -d
    ```
-4. After running the Docker Compose setup, observe the output of `perl-script` service.
+
+4. After running the Docker Compose setup, observe the output of the `perl-script` service. The `fmap_concat` command never finishes.
    ```bash
    docker-compose -f docker-compose-deadlock.yml logs perl-script
    ```
@@ -42,5 +43,7 @@ You should notice a continuous increase in memory usage, indicating the presence
 Additionally, this repository includes a simple Perl script that, due to a race condition, may never end as expected. Explore the code and run it to observe the unexpected behavior.
 
 ## Tear down
+```
 docker-compose -f docker-compose-deadlock.yml down --rmi all
 docker-compose -f docker-compose-memory.yml down --rmi all
+```
