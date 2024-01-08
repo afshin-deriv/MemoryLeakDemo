@@ -22,10 +22,10 @@ async sub test_multi {
     return await $redis->multi(sub {
         my $tx = shift;
         $tx->set("test::$key" => "key value")->on_done(sub {
-            print "Set $key - @_\n";
+            # print "Set $key - @_\n";
         });
         $tx->publish("test::$key", $key)->on_done(sub {
-            print "Pub $key - @_\n";
+            # print "Pub $key - @_\n";
         });
     });
 }
