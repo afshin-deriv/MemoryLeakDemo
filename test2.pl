@@ -11,7 +11,7 @@ my $loop = IO::Async::Loop->new;
 
 $loop->add(
     my $redis = Net::Async::Redis->new(
-        host => 'localhost',
+        host => 'redis',
         port => 6379)
 );
 
@@ -34,7 +34,7 @@ async sub test_multi {
 
 
 my @keys = ("key1", "key2", "key3", "key4");
-
+STDOUT->autoflush(1);
 print "Before calling 'fmap_concat'\n";
 my @results = await fmap_concat {
         test_multi($_);
