@@ -1,4 +1,3 @@
-# MemoryLeakDemo
 
 ## Overview
 This is a sample Perl code repository demonstrating a race condition scenario in Perl program that uses `fmap_concat` and `Net::Async::Redis::Multi`.
@@ -15,9 +14,16 @@ To reproduce the scenarios, follow these steps:
    ```bash
    cd MemoryLeakDemo
    ```
+###  MemoryLeakDemo
 3. Run the Docker Compose setup:
    ```bash
    docker-compose up -d
+   ```
+
+###  DEADLock
+3. Run the Docker Compose setup:
+   ```bash
+   docker-compose up -d -f Dockerfile-memory 
    ```
 
 ## Memory Leak Demonstration

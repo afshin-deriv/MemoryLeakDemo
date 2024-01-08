@@ -1,9 +1,9 @@
 FROM --platform=linux/amd64 regentmarkets/debian-perl:bullseye-5.26.2
 
 WORKDIR /app
-COPY cpanfile .
+COPY cpanfile-deadlock .
 
-RUN cpanm -n --installdeps .
+RUN cpanm --cpanfile cpanfile-deadlock --installdeps .
 
 COPY test2.pl .
 

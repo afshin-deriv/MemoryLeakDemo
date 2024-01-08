@@ -3,7 +3,7 @@ services:
   perl-script:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-deadlock
     depends_on:
       - redis
 
